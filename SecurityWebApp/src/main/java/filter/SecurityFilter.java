@@ -15,6 +15,8 @@ import jakarta.servlet.ServletResponse;
 import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import request.UserRoleRequestWrapper;
+import util.AppUtils;
 import util.SecurityUtils;
 
 @WebFilter("*/")
@@ -35,7 +37,7 @@ public class SecurityFilter implements Filter {
         if (loginedUser != null) {
             String userName = loginedUser.getUserName();
             List<String> roles = loginedUser.getRoles();
-            wrapRequest = new UserRequestWrapper(userName, roles, request);
+            wrapRequest = new UserRoleRequestWrapper(userName, roles, request);
         }
         if (SecurityUtils.isSecurityPage(request)) {
             if (loginedUser == null) {
